@@ -18,6 +18,8 @@ def read_lines_from_file():
 
 def read_temp():
   lines = read_lines_from_file()
+  print( f"lines: {lines}" )
+
   while lines[0].strip()[-3:] != 'YES':
     time.sleep( 0.2 )
     lines = read_lines_from_file()
@@ -32,7 +34,10 @@ def read_temp():
 last_sensor_poll = 0
 sensor_interval = 5  # Seconds
 
-while True:
-  if (time.time() - last_sensor_poll) > sensor_interval:
-    print( read_temp() )
-    last_sensor_poll = time.time()
+try:
+  while True:
+    if (time.time() - last_sensor_poll) > sensor_interval:
+      print( read_temp() )
+      last_sensor_poll = time.time()
+except KeyboardInterrupt as interrupt:
+  print( "Exiting..." )
