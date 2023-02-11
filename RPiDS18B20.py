@@ -9,14 +9,17 @@ import time
 base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob( base_dir + '28*' )[1]
 device_file = device_folder + '/w1_slave'
-device_list = []
+device_list = glob.glob( base_dir + '28*' )
+print( device_list )
+
+
+# for dir_device in glob.glob( base_dir + '28*' ):
+#   device_list.append( dir_device + '/w1_slave' )
 
 
 def read_lines_from_file():
   lines_list = []
   print( f"Opening '{glob.glob( base_dir + '28*' )}'" )
-  for device in glob.glob( base_dir + '28*' ):
-    device_list.append( device + '/w1_slave' )
   for device in device_list:
     with open( device, 'r' ) as device2:
       lines_list.append( device2.readlines() )
