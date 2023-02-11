@@ -10,11 +10,6 @@ base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob( base_dir + '28*' )[1]
 device_file = device_folder + '/w1_slave'
 device_list = glob.glob( base_dir + '28*' )
-print( device_list )
-
-
-# for dir_device in glob.glob( base_dir + '28*' ):
-#   device_list.append( dir_device + '/w1_slave' )
 
 
 def read_lines_from_file():
@@ -30,8 +25,6 @@ def read_lines_from_file():
 
 def read_temp():
   lines = read_lines_from_file()
-  print( f"lines: {lines}" )
-
   while lines[0].strip()[-3:] != 'YES':
     time.sleep( 0.2 )
     lines = read_lines_from_file()
