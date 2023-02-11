@@ -21,7 +21,7 @@ def read_lines_from_file():
   lines_list = []
   print( f"Opening '{glob.glob( base_dir + '28*' )}'" )
   for device in device_list:
-    with open( device, 'r' ) as device2:
+    with open( device + '/w1_slave', 'r' ) as device2:
       lines_list.append( device2.readlines() )
   print( f"lines_list: {lines_list}" )
   with open( device_file, 'r' ) as device:
