@@ -12,6 +12,7 @@ device_file = device_folder + '/w1_slave'
 
 
 def read_lines_from_file():
+  print( f"Opening '{device_file}'" )
   with open( device_file, 'r' ) as device:
     return device.readlines()
 
