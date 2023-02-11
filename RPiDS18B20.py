@@ -5,6 +5,7 @@
 import glob
 import time
 
+
 base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob( base_dir + '28*' )[0]
 device_file = device_folder + '/w1_slave'
@@ -28,6 +29,10 @@ def read_temp():
     return temp_c, temp_f
 
 
+last_sensor_poll = 0
+sensor_interval = 5  # Seconds
+
 while True:
-  print( read_temp() )
-  time.sleep( 1 )
+  if (time.time() - last_sensor_poll) > sensor_interval:
+    print( read_temp() )
+    last_sensor_poll = time.time()
