@@ -10,18 +10,16 @@ device_folder = glob.glob( base_dir + '28*' )[0]
 device_file = device_folder + '/w1_slave'
 
 
-def read_temp_raw():
-  f = open( device_file, 'r' )
-  lines = f.readlines()
-  f.close()
-  return lines
+def read_lines_from_file():
+  with open( device_file, 'r' ) as device:
+    return device.readlines()
 
 
 def read_temp():
-  lines = read_temp_raw()
+  lines = read_lines_from_file()
   while lines[0].strip()[-3:] != 'YES':
     time.sleep( 0.2 )
-    lines = read_temp_raw()
+    lines = read_lines_from_file()
   equals_pos = lines[1].find( 't=' )
   if equals_pos != -1:
     temp_string = lines[1][equals_pos + 2:]
