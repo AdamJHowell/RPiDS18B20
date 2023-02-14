@@ -75,7 +75,7 @@ def read_temp1():
   temp_c1 = 0.0
   temp_f1 = 0.0
   lines1 = read_temp_raw1()
-  while lines1[1].strip()[-3:] != 'YES':
+  while lines1[0].strip()[-3:] != 'YES':
     lines1 = read_temp_raw1()
     equals_pos1 = lines1[1].find( 't=' )
     temp_string1 = lines1[1][equals_pos1 + 2:]
