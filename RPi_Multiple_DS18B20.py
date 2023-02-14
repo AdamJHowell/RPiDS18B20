@@ -43,8 +43,8 @@ def read_rom1():
 
 # Read the temperature from each folder
 def read_temp_raw():
-  with open( device_file, 'r' ) as device2:
-    lines = device2.readlines()
+  with open( device_file, 'r' ) as device:
+    lines = device.readlines()
     print( f"read_temp_raw() lines: {lines}" )
     return lines
 
@@ -52,8 +52,8 @@ def read_temp_raw():
 def read_temp_raw1():
   with open( device_file1, 'r' ) as device1:
     lines1 = device1.readlines()
-  print( f"read_temp_raw() lines: {lines1}" )
-  return lines1
+    print( f"read_temp_raw()1 lines: {lines1}" )
+    return lines1
 
 
 # Convert the temperature data to a human-readable format.
