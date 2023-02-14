@@ -84,7 +84,7 @@ if __name__ == "__main__":
       # Iterate through the device_list, reading and printing each temperature.
       for count, device in enumerate( device_list, start = 1 ):
         temp_c = read_temp( device )
-        print( f"  Sensor {count}: {temp_c}:.2f°C  {temp_c * 1.8 + 32}.2f°F" )
+        print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
       print()
       time.sleep( sleep_seconds )
   except KeyboardInterrupt:
