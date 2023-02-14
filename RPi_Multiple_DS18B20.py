@@ -16,26 +16,22 @@ os.system( 'modprobe w1-therm' )
 
 base_dir = '/sys/bus/w1/devices/'
 # Get all the filenames that begin with 28 in the path base_dir.
-device_folder = glob.glob( base_dir + '28*' )[0]
-print( f"device_folder: {device_folder}" )
-device_folder1 = glob.glob( base_dir + '28*' )[1]
-print( f"device_folder1: {device_folder1}" )
+device_folder = glob.glob( base_dir + device_address_suffix )[0]
+device_folder1 = glob.glob( base_dir + device_address_suffix )[1]
 
-device_file = device_folder + '/w1_slave'
-print( f"device_file: {device_file}" )
-device_file1 = device_folder1 + '/w1_slave'
-print( f"device_file1: {device_file1}" )
+device_file = device_folder + device_folder_suffix
+device_file1 = device_folder1 + device_folder_suffix
 
 
 def read_rom():
-  name_file = device_folder + '/name'
+  name_file = device_folder + device_folder_name
   f = open( name_file, 'r' )
   # print('f:',f)
   return f.readline()
 
 
 def read_rom1():
-  name_file1 = device_folder1 + '/name'
+  name_file1 = device_folder1 + device_folder_name
   g = open( name_file1, 'r' )
   # print('g:',g)
   return g.readline()
@@ -58,8 +54,6 @@ def read_temp_raw1():
 
 # Convert the temperature data to a human-readable format.
 def read_temp():
-  temp_c = 0.0
-  temp_f = 0.0
   lines = read_temp_raw()
   while lines[0].strip()[-3:] != 'YES':
     lines = read_temp_raw()
@@ -71,8 +65,6 @@ def read_temp():
 
 
 def read_temp1():
-  temp_c1 = 0.0
-  temp_f1 = 0.0
   lines1 = read_temp_raw1()
   while lines1[0].strip()[-3:] != 'YES':
     lines1 = read_temp_raw1()
