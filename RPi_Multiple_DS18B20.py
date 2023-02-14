@@ -75,8 +75,11 @@ def read_temp1():
   return temp_c1, temp_f1
 
 
-while True:
-  # Read the temperature data and print the value from each individual sensor.
-  print( ' C1=%3.3f  F1=%3.3f' % read_temp() )
-  print( ' C2=%3.3f  F2=%3.3f' % read_temp1() )
-  time.sleep( 5 )
+try:
+  while True:
+    # Read the temperature data and print the value from each individual sensor.
+    print( ' C1=%3.3f  F1=%3.3f' % read_temp() )
+    print( ' C2=%3.3f  F2=%3.3f' % read_temp1() )
+    time.sleep( 5 )
+except KeyboardInterrupt:
+  print( "Keyboard interrupt detected.  Exiting..." )
