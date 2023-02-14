@@ -69,25 +69,30 @@ def read_temp( device_to_read ):
 
 if __name__ == "__main__":
   program_name = "RPi multiple DS18B20"
+  loop_count = 0
+  sensor_interval = 10
+  last_sensor_poll = 0
+
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
   # This suffix is a subdirectory under the device, where the actual reading is located.
   device_folder_suffix = "/w1_slave"
-  sleep_seconds = 5
 
   print( f"Welcome to {program_name}" )
   # Create a List of every 1-wire device.
   device_list = device_list_populate( base_directory, device_folder_suffix )
-  print( f"Sensors will be polled every {sleep_seconds} seconds." )
+  print( f"Sensors will be polled every {sensor_interval} seconds." )
 
   try:
     while True:
-      # Iterate through the device_list, reading and printing each temperature.
-      for count, device in enumerate( device_list, start = 1 ):
-        temp_c = read_temp( device )
-        print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
-      print()
-      time.sleep( sleep_seconds )
+      if (time.time() - last_sensor_poll) > sensor_interval:
+        loop_count += 1
+        # Iterate through the device_list, reading and printing each temperature.
+        for count, device in enumerate( device_list, start = 1 ):
+          temp_c = read_temp( device )
+          print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
+        print()
+        last_sensor_poll = time.time()
   except KeyboardInterrupt:
     print( "\n" )
     print( "Keyboard interrupt detected." )
