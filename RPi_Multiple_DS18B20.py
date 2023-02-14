@@ -17,6 +17,7 @@ import time
 def device_list_populate( base_dir, directory_suffix = "" ):
   """
   This function will detect devices under the base directory, and append the directory suffix to each one before returning them all in one List
+  I have only tested this with DS18B20 sensors, but it should work for other devices like the DS2413.
   :param base_dir: The filesystem directory where the devices are located
   :type base_dir: String
   :param directory_suffix: An optional suffix to append to each discovered device
