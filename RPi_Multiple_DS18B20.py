@@ -5,6 +5,7 @@ import glob
 import time
 
 
+program_name = "RPi multiple DS18B20"
 base_dir = "/sys/bus/w1/devices/28*"
 device_folder_suffix = "/w1_slave"
 
@@ -12,8 +13,10 @@ device_folder_suffix = "/w1_slave"
 device_file = glob.glob( base_dir )[0] + device_folder_suffix
 device_file1 = glob.glob( base_dir )[1] + device_folder_suffix
 
-# device_file = device_folder + device_folder_suffix
-# device_file1 = device_folder1 + device_folder_suffix
+
+def device_list_populate():
+  for index, item in enumerate( glob.glob( base_dir ) ):
+    print( index, item )
 
 
 def device_count():
@@ -44,6 +47,8 @@ def read_temp( file_to_read ):
 
 
 if __name__ == "__main__":
+  print( f"Welcome to {program_name}" )
+  device_list_populate()
   print( f"Detected {device_count()} devices." )
   try:
     while True:
@@ -53,4 +58,6 @@ if __name__ == "__main__":
       time.sleep( 5 )
   except KeyboardInterrupt:
     print()
-    print( "Keyboard interrupt detected.  Exiting..." )
+    print( "Keyboard interrupt detected." )
+  finally:
+    print( f"Goodbye from {program_name}" )
