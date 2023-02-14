@@ -63,11 +63,11 @@ def read_temp():
   lines = read_temp_raw()
   while lines[0].strip()[-3:] != 'YES':
     lines = read_temp_raw()
-    print( f"lines: {lines}" )
-    equals_pos = lines[1].find( 't=' )
-    temp_string = lines[1][equals_pos + 2:]
-    temp_c = float( temp_string ) / 1000.0
-    temp_f = temp_c * 9.0 / 5.0 + 32.0
+  print( f"lines: {lines}" )
+  equals_pos = lines[1].find( 't=' )
+  temp_string = lines[1][equals_pos + 2:]
+  temp_c = float( temp_string ) / 1000.0
+  temp_f = temp_c * 9.0 / 5.0 + 32.0
   return temp_c, temp_f
 
 
@@ -77,10 +77,10 @@ def read_temp1():
   lines1 = read_temp_raw1()
   while lines1[0].strip()[-3:] != 'YES':
     lines1 = read_temp_raw1()
-    equals_pos1 = lines1[1].find( 't=' )
-    temp_string1 = lines1[1][equals_pos1 + 2:]
-    temp_c1 = float( temp_string1 ) / 1000.0
-    temp_f1 = temp_c1 * 9.0 / 5.0 + 32.0
+  equals_pos1 = lines1[1].find( 't=' )
+  temp_string1 = lines1[1][equals_pos1 + 2:]
+  temp_c1 = float( temp_string1 ) / 1000.0
+  temp_f1 = temp_c1 * 9.0 / 5.0 + 32.0
   return temp_c1, temp_f1
 
 
