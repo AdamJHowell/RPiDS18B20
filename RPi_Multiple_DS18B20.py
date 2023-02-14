@@ -8,9 +8,9 @@ import time
 def device_list_populate():
   print( f"Discovered devices:" )
   list_of_devices = []
-  for index, device in enumerate( glob.glob( base_dir ) ):
-    print( f"  {index} - {device}" )
-    list_of_devices.append( device + device_folder_suffix )
+  for index, discovered_device in enumerate( glob.glob( base_dir ) ):
+    print( f"  {index} - {discovered_device}" )
+    list_of_devices.append( discovered_device + device_folder_suffix )
   return list_of_devices
 
 
@@ -44,14 +44,9 @@ if __name__ == "__main__":
   print( f"Detected {len( device_list )} devices." )
   try:
     while True:
-      # Set count to zero in case device_list is empty, and you need to know the count after this loop.
-      count = 0
+      # Iterate through the device_list, reading and printing each temperature.
       for count, device in enumerate( device_list, start = 1 ):
-        print( count, device )
         print( f"  Sensor {count}: %3.3f°C  %3.3f°F" % read_temp( device ) )
-      # # Read the temperature data and print the value from each individual sensor.
-      # for device in device_list:
-      #   print( " C1=%3.3f  F1=%3.3f" % read_temp( device ) )
       time.sleep( 5 )
   except KeyboardInterrupt:
     print()
