@@ -6,21 +6,28 @@ import os
 import time
 
 
+base_dir = '/sys/bus/w1/devices/'
 device_address_suffix = "28*"
 device_folder_suffix = "/w1_slave"
 device_folder_name = "/name"
 
 # These lines mount the device:
-os.system( 'modprobe w1-gpio' )
-os.system( 'modprobe w1-therm' )
+# os.system( 'modprobe w1-gpio' )
+# os.system( 'modprobe w1-therm' )
 
-base_dir = '/sys/bus/w1/devices/'
 # Get all the filenames that begin with 28 in the path base_dir.
 device_folder = glob.glob( base_dir + device_address_suffix )[0]
 device_folder1 = glob.glob( base_dir + device_address_suffix )[1]
 
 device_file = device_folder + device_folder_suffix
 device_file1 = device_folder1 + device_folder_suffix
+
+
+def device_count():
+  device_list = glob.glob( base_dir + device_address_suffix )
+  for device in device_list:
+    print( f"Device found: {device}" )
+  return len( device_list )
 
 
 def read_rom():
@@ -75,11 +82,13 @@ def read_temp1():
   return temp_c1, temp_f1
 
 
-try:
-  while True:
-    # Read the temperature data and print the value from each individual sensor.
-    print( ' C1=%3.3f  F1=%3.3f' % read_temp() )
-    print( ' C2=%3.3f  F2=%3.3f' % read_temp1() )
-    time.sleep( 5 )
-except KeyboardInterrupt:
-  print( "Keyboard interrupt detected.  Exiting..." )
+if __name__ == "__main__":
+  try:
+    while True:
+      # Read the temperature data and print the value from each individual sensor.
+      print( ' C1=%3.3f  F1=%3.3f' % read_temp() )
+      print( ' C2=%3.3f  F2=%3.3f' % read_temp1() )
+      time.sleep( 5 )
+  except KeyboardInterrupt:
+    print()
+    print( "Keyboard interrupt detected.  Exiting..." )
