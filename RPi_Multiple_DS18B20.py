@@ -5,21 +5,19 @@ import glob
 import time
 
 
-base_dir = '/sys/bus/w1/devices/'
-device_address_suffix = "28*"
+base_dir = "/sys/bus/w1/devices/28*"
 device_folder_suffix = "/w1_slave"
-device_folder_name = "/name"
 
 # Get all the filenames that begin with 28 in the path base_dir.
-device_folder = glob.glob( base_dir + device_address_suffix )[0]
-device_folder1 = glob.glob( base_dir + device_address_suffix )[1]
+device_file = glob.glob( base_dir )[0] + device_folder_suffix
+device_file1 = glob.glob( base_dir )[1] + device_folder_suffix
 
-device_file = device_folder + device_folder_suffix
-device_file1 = device_folder1 + device_folder_suffix
+# device_file = device_folder + device_folder_suffix
+# device_file1 = device_folder1 + device_folder_suffix
 
 
 def device_count():
-  device_list = glob.glob( base_dir + device_address_suffix )
+  device_list = glob.glob( base_dir )
   for device in device_list:
     print( f"  Device found at directory: {device}" )
   return len( device_list )
