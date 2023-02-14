@@ -17,7 +17,9 @@ os.system( 'modprobe w1-therm' )
 base_dir = '/sys/bus/w1/devices/'
 # Get all the filenames that begin with 28 in the path base_dir.
 device_folder = glob.glob( base_dir + '28*' )[0]
+print( f"device_folder: {device_folder}" )
 device_folder1 = glob.glob( base_dir + '28*' )[1]
+print( f"device_folder1: {device_folder1}" )
 # device_folder2 = glob.glob( base_dir + '28*' )[2]
 # device_folder3 = glob.glob( base_dir + '28*' )[3]
 # device_folder4 = glob.glob( base_dir + '28*' )[4]
@@ -27,7 +29,9 @@ device_folder1 = glob.glob( base_dir + '28*' )[1]
 # device_folder8 = glob.glob( base_dir + '28*' )[8]
 
 device_file = device_folder + '/w1_slave'
+print( f"device_file: {device_file}" )
 device_file1 = device_folder1 + '/w1_slave'
+print( f"device_file1: {device_file1}" )
 
 
 # device_file2 = device_folder2 + '/w1_slave'
@@ -107,7 +111,7 @@ def read_rom1():
 def read_temp_raw():
   f = open( device_file, 'r' )
   lines = f.readlines()
-  # print('raw_f',lines)
+  print( 'raw_f', lines )
   f.close()
   return lines
 
@@ -115,7 +119,7 @@ def read_temp_raw():
 def read_temp_raw1():
   g = open( device_file1, 'r' )
   lines1 = g.readlines()
-  # print('raw_g',lines1)
+  print( 'raw_g', lines1 )
   g.close()
   return lines1
 
