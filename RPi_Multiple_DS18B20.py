@@ -83,6 +83,7 @@ def read_temp1():
 
 
 if __name__ == "__main__":
+  print( f"Detected {device_count()} devices." )
   try:
     while True:
       # Read the temperature data and print the value from each individual sensor.
