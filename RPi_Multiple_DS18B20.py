@@ -50,10 +50,9 @@ def read_temp_raw():
 
 
 def read_temp_raw1():
-  g = open( device_file1, 'r' )
-  lines1 = g.readlines()
-  print( 'raw_g', lines1 )
-  g.close()
+  with open( device_file1, 'r' ) as device1:
+    lines1 = device1.readlines()
+  print( f"read_temp_raw() lines: {lines1}" )
   return lines1
 
 
