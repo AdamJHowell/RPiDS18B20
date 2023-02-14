@@ -45,14 +45,14 @@ def read_rom1():
 def read_temp_raw():
   with open( device_file, 'r' ) as device:
     lines = device.readlines()
-    print( f"read_temp_raw() lines: {lines}" )
+    # print( f"read_temp_raw() lines: {lines}" )
     return lines
 
 
 def read_temp_raw1():
   with open( device_file1, 'r' ) as device1:
     lines1 = device1.readlines()
-    print( f"read_temp_raw()1 lines: {lines1}" )
+    # print( f"read_temp_raw()1 lines: {lines1}" )
     return lines1
 
 
@@ -63,7 +63,6 @@ def read_temp():
   lines = read_temp_raw()
   while lines[0].strip()[-3:] != 'YES':
     lines = read_temp_raw()
-  print( f"lines: {lines}" )
   equals_pos = lines[1].find( 't=' )
   temp_string = lines[1][equals_pos + 2:]
   temp_c = float( temp_string ) / 1000.0
