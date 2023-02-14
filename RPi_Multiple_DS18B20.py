@@ -5,32 +5,17 @@ import glob
 import time
 
 
-program_name = "RPi multiple DS18B20"
-base_dir = "/sys/bus/w1/devices/28*"
-device_folder_suffix = "/w1_slave"
-
-# Get all the filenames that begin with 28 in the path base_dir.
-# device_file = glob.glob( base_dir )[0] + device_folder_suffix
-# device_file1 = glob.glob( base_dir )[1] + device_folder_suffix
-
-
 def device_list_populate():
+  print( f"Discovered devices:" )
   list_of_devices = []
-  for index, item in enumerate( glob.glob( base_dir ) ):
-    print( index, item )
-    list_of_devices.append( item + device_folder_suffix )
+  for index, device in enumerate( glob.glob( base_dir ) ):
+    print( f"  {index} - {device}" )
+    list_of_devices.append( device + device_folder_suffix )
   return list_of_devices
 
 
-def device_count():
-  list_of_devices = glob.glob( base_dir )
-  for discovered_device in list_of_devices:
-    print( f"  Device found at directory: {discovered_device}" )
-  return len( list_of_devices )
-
-
 # Read the temperature from each folder
-def read_temp_raw( file ):
+def read_from_sensor( file ):
   with open( file, 'r' ) as device_file:
     lines = device_file.readlines()
     # print( f"read_temp_raw() lines: {lines}" )
@@ -38,10 +23,10 @@ def read_temp_raw( file ):
 
 
 # Convert the temperature data to a human-readable format.
-def read_temp( file_to_read ):
-  lines = read_temp_raw( file_to_read )
+def read_temp( device_to_read ):
+  lines = read_from_sensor( device_to_read )
   while lines[0].strip()[-3:] != 'YES':
-    lines = read_temp_raw( file_to_read )
+    lines = read_from_sensor( device_to_read )
   equals_pos = lines[1].find( 't=' )
   temp_string = lines[1][equals_pos + 2:]
   temp_c = float( temp_string ) / 1000.0
@@ -50,15 +35,23 @@ def read_temp( file_to_read ):
 
 
 if __name__ == "__main__":
+  program_name = "RPi multiple DS18B20"
+  base_dir = "/sys/bus/w1/devices/28*"
+  device_folder_suffix = "/w1_slave"
+
   print( f"Welcome to {program_name}" )
   device_list = device_list_populate()
-  print( f"Detected {device_count()} devices." )
+  print( f"Detected {len( device_list )} devices." )
   try:
     while True:
-      # Read the temperature data and print the value from each individual sensor.
-      for device in device_list:
-        print( ' C1=%3.3f  F1=%3.3f' % read_temp( device ) )
-      # print( ' C2=%3.3f  F2=%3.3f' % read_temp( device_file1 ) )
+      # Set count to zero in case device_list is empty, and you need to know the count after this loop.
+      count = 0
+      for count, device in enumerate( device_list, start = 1 ):
+        print( count, device )
+        print( f"  Sensor {count}: %3.3f°C  %3.3f°F" % read_temp( device ) )
+      # # Read the temperature data and print the value from each individual sensor.
+      # for device in device_list:
+      #   print( " C1=%3.3f  F1=%3.3f" % read_temp( device ) )
       time.sleep( 5 )
   except KeyboardInterrupt:
     print()
