@@ -13,3 +13,4 @@ I suspect that project was derived from the Adafruit project [located here](http
 #### Notes:
 * The Raspberry Pi must have the Dallas 1-wire protocol enabled on the Interfaces tab of the Raspberry Pi Configuration utility.
 * Once that interface is enabled and the Pi rebooted, the 1-wire devices will appear on the Raspberry Pi filesystem.
+* A Fritzing project showing how to wire up these sensors [can be found here](https://github.com/AdamJHowell/DS18B20-Holder-x6).
