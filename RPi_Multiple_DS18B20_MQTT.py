@@ -20,7 +20,6 @@ if __name__ == "__main__":
   program_name = "RPi multiple DS18B20"
   loop_count = 0
   bus_scan_interval = 3600  # Rescan the 1-Wire bus every hour.
-  last_bus_scan = 0
   sensor_interval = 10
   last_sensor_poll = 0
   broker_address = "192.168.55.200"
@@ -38,6 +37,9 @@ if __name__ == "__main__":
   print( f"Welcome to {program_name}" )
   print( f"Sensors will be polled every {sensor_interval} seconds." )
   print( f"The 1-Wire bus will be scanned for new devices every {bus_scan_interval / 60} minutes." )
+  # Create a List of every 1-wire device.
+  device_list = device_list_populate( base_directory, device_folder_suffix )
+  last_bus_scan = time.time()
 
   try:
     if (time.time() - last_sensor_poll) > bus_scan_interval:
