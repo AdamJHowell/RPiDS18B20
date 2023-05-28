@@ -75,10 +75,10 @@ if __name__ == "__main__":
   last_sensor_poll = 0
   broker_address = "192.168.55.200"
   broker_port = 1883
-  topic = "Office/piz2-2/DS18B20/"
-  mqtts_client = mqtt.Client( client_id = "MQTTS Client ID" )
-  mqtts_client.loop_start()
-  mqtts_client.connect( broker_address, port = broker_port )
+  topic = "Office/piz2-2/DS18B20"
+  mqtt_client = mqtt.Client( client_id = "MQTTS Client ID" )
+  mqtt_client.loop_start()
+  mqtt_client.connect( broker_address, port = broker_port )
 
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
@@ -98,7 +98,7 @@ if __name__ == "__main__":
         for count, device in enumerate( device_list, start = 1 ):
           temp_c = read_temp( device )
           print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
-          mqtts_client.publish( f"{topic}/{count}/tempF", temp_c * 1.8 + 32 )
+          mqtt_client.publish( f"{topic}/{count}/tempF", temp_c * 1.8 + 32 )
         print()
         last_sensor_poll = time.time()
   except KeyboardInterrupt:
