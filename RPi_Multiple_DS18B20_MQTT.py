@@ -42,7 +42,7 @@ if __name__ == "__main__":
   last_bus_scan = time.time()
 
   try:
-    if (time.time() - last_sensor_poll) > bus_scan_interval:
+    if (time.time() - last_bus_scan) > bus_scan_interval:
       # Create a List of every 1-wire device.
       device_list = device_list_populate( base_directory, device_folder_suffix )
       last_bus_scan = time.time()
