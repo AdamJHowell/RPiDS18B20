@@ -98,7 +98,7 @@ if __name__ == "__main__":
         for count, device in enumerate( device_list, start = 1 ):
           temp_c = read_temp( device )
           print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
-          mqtt_client.publish( f"{topic}/{count}/tempF", temp_c * 1.8 + 32 )
+          mqtt_client.publish( f"{topic}-{count}/tempF", temp_c * 1.8 + 32 )
         print()
         last_sensor_poll = time.time()
   except KeyboardInterrupt:
