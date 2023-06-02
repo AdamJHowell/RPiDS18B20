@@ -15,7 +15,7 @@ def device_list_populate( base_dir, directory_suffix = "" ):
   print( "Discovered devices:" )
   list_of_devices = []
   # Use glob to detect all devices on the filesystem.
-  for index, discovered_device in enumerate( glob.glob( base_dir ) ):
+  for index, discovered_device in enumerate( glob.glob( base_dir ), start = 1 ):
     print( f"  {index} - {discovered_device}" )
     # Add each device to the List.
     list_of_devices.append( discovered_device + directory_suffix )
