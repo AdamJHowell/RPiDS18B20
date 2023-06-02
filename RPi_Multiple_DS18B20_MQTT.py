@@ -35,8 +35,8 @@ if __name__ == "__main__":
   device_folder_suffix = "/w1_slave"
 
   print( f"Welcome to {program_name}" )
-  print( f"Sensors will be polled every {sensor_interval} seconds." )
   print( f"The 1-Wire bus will be scanned for new devices every {bus_scan_interval / 60} minutes." )
+  print( f"Temperature sensors on the bus will be polled every {sensor_interval} seconds." )
   # Create a List of every 1-wire device.
   device_list = device_list_populate( base_directory, device_folder_suffix )
   last_bus_scan = time.time()
