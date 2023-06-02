@@ -13,7 +13,7 @@ I suspect that project was derived from the Adafruit project located here: https
 import time
 import paho.mqtt.client as mqtt
 
-from DS18B20_Functions import device_list_populate, read_temp
+from DS18B20_Functions import device_list_populate, read_temp, check_bus
 
 
 if __name__ == "__main__":
@@ -48,12 +48,13 @@ if __name__ == "__main__":
       last_bus_scan = time.time()
     while True:
       if (time.time() - last_sensor_poll) > sensor_interval:
+        check_bus()
         loop_count += 1
         # Iterate through the device_list, reading and printing each temperature.
         for count, device in enumerate( device_list, start = 1 ):
           temp_c = read_temp( device )
           print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
-          mqtt_client.publish( f"{topic}-{count}/tempF", temp_c * 1.8 + 32 )
+          mqtt_client.publish( f"{topic}-{count}/tempF", f"{(temp_c * 1.8 + 32):.2f}" )
         print()
         last_sensor_poll = time.time()
   except KeyboardInterrupt:

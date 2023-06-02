@@ -1,4 +1,8 @@
 import glob
+import os
+import time
+
+import RPi.GPIO as GPIO
 
 
 def device_list_populate( base_dir, directory_suffix = "" ):
@@ -12,6 +16,7 @@ def device_list_populate( base_dir, directory_suffix = "" ):
   :return: A List of directories
   :rtype: List of Strings
   """
+  check_bus()
   print( "Discovered devices:" )
   list_of_devices = []
   # Use glob to detect all devices on the filesystem.
@@ -53,3 +58,16 @@ def read_temp( device_to_read ):
   equals_pos = lines[1].find( "t=" )
   temp_string = lines[1][equals_pos + 2:]
   return float( temp_string ) / 1000.0
+
+
+def check_bus():
+  power_gpio = 17
+  power_off_time = 3
+  power_on_time = 5
+  if not os.path.isdir( "/sys/bus/w1/devices/28-xxxxxxxxxx" ):
+    GPIO.setmode( GPIO.BCM )
+    GPIO.setup( power_gpio, GPIO.OUT )
+    GPIO.output( power_gpio, GPIO.LOW )
+    time.sleep( power_off_time )
+    GPIO.output( power_gpio, GPIO.HIGH )
+    time.sleep( power_on_time )
