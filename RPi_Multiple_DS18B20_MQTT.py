@@ -13,13 +13,14 @@ I suspect that project was derived from the Adafruit project located here: https
 import time
 import paho.mqtt.client as mqtt
 
-from DS18B20_Functions import device_list_populate, read_temp, check_bus
+from DS18B20_Functions import device_list_populate, read_temp, check_bus, set_bus
 
 
 if __name__ == "__main__":
   program_name = "RPi multiple DS18B20"
   loop_count = 0
   bus_scan_interval = 3600  # Rescan the 1-Wire bus every hour.
+  power_gpio = 17
   sensor_interval = 10
   last_sensor_poll = 0
   broker_address = "192.168.55.200"
@@ -33,6 +34,7 @@ if __name__ == "__main__":
   base_directory = "/sys/bus/w1/devices/28*"
   # This suffix is a subdirectory under the device, where the actual reading is located.
   device_folder_suffix = "/w1_slave"
+  set_bus( power_gpio )
 
   print( f"Welcome to {program_name}" )
   print( f"The 1-Wire bus will be scanned for new devices every {bus_scan_interval / 60} minutes." )

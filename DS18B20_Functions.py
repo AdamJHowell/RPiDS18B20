@@ -60,13 +60,17 @@ def read_temp( device_to_read ):
   return float( temp_string ) / 1000.0
 
 
+def set_bus( gpio ):
+  GPIO.setmode( GPIO.BCM )
+  GPIO.setup( gpio, GPIO.OUT )
+
+
 def check_bus():
   power_gpio = 17
   power_off_time = 3
   power_on_time = 5
+  set_bus( power_gpio )
   if not os.path.isdir( "/sys/bus/w1/devices/28-xxxxxxxxxx" ):
-    GPIO.setmode( GPIO.BCM )
-    GPIO.setup( power_gpio, GPIO.OUT )
     GPIO.output( power_gpio, GPIO.LOW )
     time.sleep( power_off_time )
     GPIO.output( power_gpio, GPIO.HIGH )
