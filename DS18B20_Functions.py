@@ -19,6 +19,7 @@ def device_list_populate( base_dir, directory_suffix = "" ):
     print( f"  {index} - {discovered_device}" )
     # Add each device to the List.
     list_of_devices.append( discovered_device + directory_suffix )
+  print()
   return list_of_devices
 
 
