@@ -69,6 +69,8 @@ if __name__ == "__main__":
           temp_c = read_temp( device )
           print( f"  Sensor {count}: {temp_c:.2f}°C  {(temp_c * 1.8 + 32):.2f}°F" )
           mqtt_client.publish( f"{topic}-{count}/tempF", f"{(temp_c * 1.8 + 32):.2f}" )
+        if MQTT_Functions.mqtt_connected is False:
+          print( "MQTT is not connected." )
         print()
         last_sensor_poll = time.time()
   except KeyboardInterrupt:

@@ -4,10 +4,13 @@ import paho.mqtt.client as mqtt
 
 
 my_mutex = Lock()
+mqtt_connected = False
 
 
 def connect_callback_v3( connect_client: mqtt.Client, userdata, flags, connect_result_code ):
   # Paho expected signature: connect_callback_v5(client, userdata, flags, rc)
+  global mqtt_connected
+  mqtt_connected = True
   with my_mutex:
     print( "↑↑ ON CONNECT ↑↑" )
     print( f"  Connected client: {connect_client}" )
@@ -18,6 +21,8 @@ def connect_callback_v3( connect_client: mqtt.Client, userdata, flags, connect_r
 
 def disconnect_callback_v3( disconnect_client: mqtt.Client, userdata, disconnect_result_code ):
   # Paho expected signature: disconnect_callback_v5(client, userdata, rc)
+  global mqtt_connected
+  mqtt_connected = False
   with my_mutex:
     print( "↓↓ ON DISCONNECT ↓↓" )
     print( f"  Disconnected client: {disconnect_client}" )
