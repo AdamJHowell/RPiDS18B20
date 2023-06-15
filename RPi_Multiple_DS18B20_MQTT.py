@@ -28,7 +28,10 @@ if __name__ == "__main__":
   topic = "Office/piz2-2/DS18B20"
   mqtt_client = mqtt.Client( client_id = "MQTTS Client ID" )
   mqtt_client.loop_start()
-  mqtt_client.connect( broker_address, port = broker_port )
+  if mqtt_client.connect( broker_address, port = broker_port ):
+    print( f"Successfully connected to {broker_address}:{broker_port}" )
+  else:
+    print( f"Failed to connect to {broker_address}:{broker_port}" )
 
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
