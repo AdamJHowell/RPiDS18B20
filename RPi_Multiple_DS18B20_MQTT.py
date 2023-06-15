@@ -28,6 +28,9 @@ if __name__ == "__main__":
   broker_address = "192.168.55.200"
   broker_port = 1883
   topic = "Office/piz2-2/DS18B20"
+
+  print( f"\nWelcome to {program_name}" )
+
   mqtt_client = mqtt.Client( client_id = "MQTTS Client ID" )
   mqtt_client.on_connect = MQTT_Functions.connect_callback_v3
   mqtt_client.on_disconnect = MQTT_Functions.disconnect_callback_v3
@@ -38,7 +41,7 @@ if __name__ == "__main__":
   if mqtt_client.connect( broker_address, port = broker_port ):
     print( f"Successfully connected to {broker_address}:{broker_port}" )
   else:
-    print( f"Failed to connect to {broker_address}:{broker_port}" )
+    print( f"~~~~ Failed to connect to {broker_address}:{broker_port}! ~~~~" )
 
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
@@ -46,7 +49,6 @@ if __name__ == "__main__":
   device_folder_suffix = "/w1_slave"
   set_bus( power_gpio )
 
-  print( f"Welcome to {program_name}" )
   print( f"The 1-Wire bus will be scanned for new devices every {bus_scan_interval / 60} minutes." )
   print( f"Temperature sensors on the bus will be polled every {sensor_interval} seconds." )
   # Create a List of every 1-wire device.
@@ -73,4 +75,4 @@ if __name__ == "__main__":
     print( "\n" )
     print( "Keyboard interrupt detected." )
   finally:
-    print( f"Goodbye from {program_name}" )
+    print( f"Goodbye from {program_name}\n" )
