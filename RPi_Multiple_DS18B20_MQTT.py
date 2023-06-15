@@ -38,10 +38,6 @@ if __name__ == "__main__":
   mqtt_client.on_message = MQTT_Functions.on_message_callback_v3
   mqtt_client.on_unsubscribe = MQTT_Functions.unsubscribe_callback_v3
   mqtt_client.loop_start()
-  if mqtt_client.connect( broker_address, port = broker_port ):
-    print( f"Successfully connected to {broker_address}:{broker_port}" )
-  else:
-    print( f"\n\n~~~~ Failed to connect to {broker_address}:{broker_port}! ~~~~\n\n" )
 
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
