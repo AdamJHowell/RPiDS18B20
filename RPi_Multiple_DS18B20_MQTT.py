@@ -11,8 +11,10 @@ The original hard-coded project can be found here: https://www.hackster.io/vinay
 I suspect that project was derived from the Adafruit project located here: https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/Raspberry_Pi_DS18B20_Temperature_Sensing/code.py
 """
 import time
+
 import paho.mqtt.client as mqtt
 
+import MQTT_Functions
 from DS18B20_Functions import device_list_populate, read_temp, check_bus, set_bus
 
 
@@ -27,6 +29,11 @@ if __name__ == "__main__":
   broker_port = 1883
   topic = "Office/piz2-2/DS18B20"
   mqtt_client = mqtt.Client( client_id = "MQTTS Client ID" )
+  mqtt_client.on_connect = MQTT_Functions.connect_callback_v3
+  mqtt_client.on_disconnect = MQTT_Functions.disconnect_callback_v3
+  mqtt_client.on_subscribe = MQTT_Functions.subscribe_callback_v3
+  mqtt_client.on_message = MQTT_Functions.on_message_callback_v3
+  mqtt_client.on_unsubscribe = MQTT_Functions.unsubscribe_callback_v3
   mqtt_client.loop_start()
   if mqtt_client.connect( broker_address, port = broker_port ):
     print( f"Successfully connected to {broker_address}:{broker_port}" )
