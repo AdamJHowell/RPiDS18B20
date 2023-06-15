@@ -41,7 +41,7 @@ if __name__ == "__main__":
   if mqtt_client.connect( broker_address, port = broker_port ):
     print( f"Successfully connected to {broker_address}:{broker_port}" )
   else:
-    print( f"~~~~ Failed to connect to {broker_address}:{broker_port}! ~~~~" )
+    print( f"\n\n~~~~ Failed to connect to {broker_address}:{broker_port}! ~~~~\n\n" )
 
   # The 28* at the end of this directory will restrict the program to detect only DS18B20 devices.
   base_directory = "/sys/bus/w1/devices/28*"
